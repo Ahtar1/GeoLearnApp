@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -22,7 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.geolearnapp.data.api.model.Data
+import com.example.geolearnapp.data.database.entity.Country
 
 @Composable
 fun LearnScreen() {
@@ -90,7 +89,7 @@ fun LearnScreen() {
                 }
             }
         }
-        items(state) { country: Data ->
+        items(state) { country: Country ->
             val color =
                 if (state.indexOf(country) % 2 == 0) Color(0xFFD6EAF8) else Color(0xFFEAFAF1)
             Box(
