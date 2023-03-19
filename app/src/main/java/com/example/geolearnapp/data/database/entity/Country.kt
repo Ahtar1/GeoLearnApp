@@ -26,15 +26,4 @@ data class Country(
 ) {
     @PrimaryKey(autoGenerate = true)
     var uid:Int = 0
-    companion object {
-        val colors = listOf(
-            Color(0xFFFF0000),
-            Color(0xFFFF7F00),
-            Color(0xFFFFFF00),
-            Color(0xFF00FF00),
-            Color(0xFF0000FF),
-            Color(0xFF4B0082),
-            Color(0xFF9400D3),
-        )
-    }
 }
