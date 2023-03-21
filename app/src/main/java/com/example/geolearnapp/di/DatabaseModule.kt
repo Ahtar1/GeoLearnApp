@@ -21,7 +21,7 @@ object DatabaseModule {
             context = context.applicationContext,
             CountryDatabase::class.java,
             "country_database"
-        ).build(
+        ).addMigrations(CountryDatabase.migration1To2).build(
         )
     }
     @Provides

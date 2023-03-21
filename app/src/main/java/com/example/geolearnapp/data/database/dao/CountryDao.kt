@@ -1,10 +1,8 @@
 package com.example.geolearnapp.data.database.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.geolearnapp.data.database.entity.Country
+import com.example.geolearnapp.data.database.entity.HighScore
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -21,4 +19,10 @@ interface CountryDao {
 
     @Query("DELETE FROM countries")
     suspend fun deleteAllCountries()
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertHighScore(highScore: HighScore?)
+
+    @Query("SELECT * FROM high_scores WHERE name = :highScoreName")
+    suspend fun getHighScore(highScoreName: String): HighScore?
 }

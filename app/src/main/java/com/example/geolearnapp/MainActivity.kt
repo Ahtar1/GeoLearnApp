@@ -2,6 +2,7 @@ package com.example.geolearnapp
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -9,12 +10,17 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Book
 import androidx.compose.material.icons.filled.Gamepad
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -69,17 +75,24 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun HomeNavGraph(navController: NavHostController) {
     NavHost(navController = navController, startDestination = "learn") {
         composable("learn") {
+            BackHandler(true) {
+                //nothing
+            }
             LearnScreen()
         }
         composable("quiz") {
+            BackHandler(true) {
+                //nothing
+            }
             QuizScreen(navController)
         }
         composable("multipleChoices")
-         {
+        {
             MultipleChoicesScreen()
         }
         composable("trueFalse") {
@@ -88,7 +101,7 @@ fun HomeNavGraph(navController: NavHostController) {
         composable("written") {
             WrittenScreen()
         }
-        composable("matching"){
+        composable("matching") {
             MatchingScreen()
         }
 
@@ -104,6 +117,16 @@ fun BottomNavigationBar(
     onItemClick: (BottomNavItem) -> Unit
 ) {
     val backStackEntry = navController.currentBackStackEntryAsState()
+
+    val screens = listOf("learn", "quiz")
+
+    val currentDestination = backStackEntry.value?.destination
+
+    val bottomBarDestinations = screens.any { it == currentDestination?.route }
+
+    if (!bottomBarDestinations) {
+        return
+    }
 
     BottomNavigation(
         modifier = Modifier,

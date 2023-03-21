@@ -1,11 +1,13 @@
 package com.example.geolearnapp.ui.quiz.truefalse
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -18,6 +20,7 @@ fun FinishedGameDiolog(
     onPlayAgain: () -> Unit,
     onGoToMenu: () -> Unit,
     score: Int,
+    highScore: Int
 ) {
     Dialog(
         onDismissRequest = { onGoToMenu() },
@@ -34,7 +37,7 @@ fun FinishedGameDiolog(
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            Column {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
                     text = "Game Over",
                     modifier = androidx.compose.ui.Modifier
@@ -43,6 +46,12 @@ fun FinishedGameDiolog(
                 )
                 Text(
                     text = "Your Score: $score ",
+                    modifier = androidx.compose.ui.Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                )
+                Text(
+                    text = "High Score: $highScore",
                     modifier = androidx.compose.ui.Modifier
                         .fillMaxWidth()
                         .padding(16.dp)
