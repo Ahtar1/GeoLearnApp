@@ -93,7 +93,7 @@ fun HomeNavGraph(navController: NavHostController) {
         }
         composable("multipleChoices")
         {
-            MultipleChoicesScreen()
+            MultipleChoicesScreen(navController)
         }
         composable("trueFalse") {
             TrueFalseScreen(navController)
@@ -131,7 +131,7 @@ fun BottomNavigationBar(
     BottomNavigation(
         modifier = Modifier,
         backgroundColor = Color.White,
-        elevation = 15.dp,
+        elevation = 20.dp,
     ) {
         items.forEach { item ->
             val selected = item.route == backStackEntry.value?.destination?.route

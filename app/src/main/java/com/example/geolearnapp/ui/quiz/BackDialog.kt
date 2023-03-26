@@ -21,17 +21,17 @@ fun BackDialog(navController: NavHostController, dialogState: MutableState<Boole
     Dialog(
         onDismissRequest = { },
         properties = DialogProperties(
-            dismissOnBackPress = false,
-            dismissOnClickOutside = false,
-            usePlatformDefaultWidth = true
+            dismissOnBackPress = true,
+            dismissOnClickOutside = true,
+            usePlatformDefaultWidth = true,
         )
     ) {
         Card(
             elevation = 8.dp,
             shape = RoundedCornerShape(15.dp),
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
+                .wrapContentSize()
+                .padding(8.dp)
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
@@ -44,7 +44,7 @@ fun BackDialog(navController: NavHostController, dialogState: MutableState<Boole
                     modifier = Modifier.fillMaxWidth().padding(16.dp),
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    Button(onClick = { navController.popBackStack() }) {
+                    Button(onClick = { navController.navigate("quiz"); dialogState.value = false }) {
                         Text("Yes")
                     }
                     Button(onClick = { dialogState.value = false }) {
