@@ -56,71 +56,16 @@ fun TrueFalseScreen(
         },
         sheetPeekHeight = 0.dp,
         sheetGesturesEnabled = false,
-        sheetShape = RoundedCornerShape(8.dp),
+        sheetShape = RoundedCornerShape(topEnd = 64.dp, topStart = 64.dp),
     ) {
         Column {
+            // Harts
+            QuizTopCard(
+                title = "True False",
+                wrongAnswerState = viewModel.wrongAnswerState.collectAsState().value
+            )
 
-            // Hearts
-            Card(
-                elevation = 8.dp,
-                shape = RoundedCornerShape(8.dp),
-                modifier = Modifier
-                    .wrapContentHeight()
-                    .fillMaxWidth()
-            ) {
-                Row(
-                    horizontalArrangement = Arrangement.SpaceAround,
-                    modifier = Modifier
-                ) {
-                    Text(
-                        text = "True False",
-                        fontSize = 20.sp,
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .wrapContentSize()
-                            .padding(16.dp)
-                    )
-                    Row {
-                        Image(
-                            painter = if (viewModel.wrongAnswerState.collectAsState().value < 3) {
-                                painterResource(com.example.geolearnapp.R.drawable.redheart)
-                            } else {
-                                painterResource(com.example.geolearnapp.R.drawable.blackheart)
-                            },
-                            contentDescription = "Heart",
-                            modifier = Modifier
-                                .wrapContentSize()
-                                .padding(8.dp)
-                        )
-                        Image(
-                            painter = if (viewModel.wrongAnswerState.collectAsState().value < 2) {
-                                painterResource(com.example.geolearnapp.R.drawable.redheart)
-                            } else {
-                                painterResource(com.example.geolearnapp.R.drawable.blackheart)
-                            },
-                            contentDescription = "Heart",
-                            modifier = Modifier
-                                .wrapContentSize()
-                                .padding(8.dp)
-                        )
-                        Image(
-                            painter = if (viewModel.wrongAnswerState.collectAsState().value < 1) {
-                                painterResource(com.example.geolearnapp.R.drawable.redheart)
-                            } else {
-                                painterResource(com.example.geolearnapp.R.drawable.blackheart)
-                            },
-                            contentDescription = "Heart",
-                            modifier = Modifier
-                                .wrapContentSize()
-                                .padding(8.dp)
-                        )
-                    }
-
-                }
-            }
             // Score
-
             Text(
                 text = "Score:" + viewModel.scoreState.collectAsState().value.toString(),
                 fontSize = 30.sp,
@@ -142,6 +87,7 @@ fun TrueFalseScreen(
                 Card(
                     elevation = 8.dp,
                     shape = RoundedCornerShape(8.dp),
+                    backgroundColor = Color(0xFFEAFAF1),
                     modifier = Modifier
                         .fillMaxSize()
                         .weight(2f)
@@ -177,6 +123,7 @@ fun TrueFalseScreen(
                 Card(
                     elevation = 8.dp,
                     shape = RoundedCornerShape(8.dp),
+                    backgroundColor = Color(0xFFEAFAF1),
                     modifier = Modifier
                         .fillMaxSize()
                         .weight(2f)
@@ -210,7 +157,9 @@ fun TrueFalseScreen(
                             .fillMaxSize()
                             .padding(16.dp)
                             .weight(1f),
-                        enabled = viewModel.isButtonsActiveState.collectAsState().value
+                        enabled = viewModel.isButtonsActiveState.collectAsState().value,
+                        colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFD6EAF8)),
+                        shape = RoundedCornerShape(16.dp)
                     ) {
                         Text(
                             text = "True ",
@@ -232,7 +181,9 @@ fun TrueFalseScreen(
                             .fillMaxSize()
                             .padding(16.dp)
                             .weight(1f),
-                        enabled = viewModel.isButtonsActiveState.collectAsState().value
+                        enabled = viewModel.isButtonsActiveState.collectAsState().value,
+                        colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFD6EAF8)),
+                        shape = RoundedCornerShape(16.dp)
                     ) {
                         Text(
                             text = "False ",

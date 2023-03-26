@@ -1,4 +1,4 @@
-package com.example.geolearnapp.ui.quiz.truefalse
+package com.example.geolearnapp.ui.quiz.multiplechoices
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,27 +18,25 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun BottomSheet(
-    viewModel: TrueFalseViewModel,
+fun MCBottomSheet(
+    viewModel: MultipleChoicesViewModel,
     scope: CoroutineScope = rememberCoroutineScope(),
-    sheetState: BottomSheetState,)
-{
-
+    sheetState: BottomSheetState
+) {
     Card(
         elevation = 8.dp,
         shape = RoundedCornerShape(topEnd = 64.dp, topStart = 64.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .height(250.dp)
+            .height(200.dp)
     ) {
-        // Congratulation
         Column(
-            modifier = Modifier.height(250.dp),
+            modifier = Modifier.height(200.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             if (viewModel.isAnswerCorrectState.collectAsState().value == true) {
                 Text(
-                    text = "Congratulations!",
+                    text = "Correct Answer!",
                     color = Color(0xFF50C878),
                     fontSize = 20.sp,
                     textAlign = TextAlign.Center,
@@ -60,41 +58,31 @@ fun BottomSheet(
                         .wrapContentSize()
                         .padding(8.dp)
                 )
+
             }
 
-            // True Answer
-            println(viewModel.trueCapitalState.collectAsState().value)
-            Text(
-                text = "The Capital of ${viewModel.countryState.collectAsState().value.name} is ${viewModel.trueCapitalState.collectAsState().value}",
-                color = Color.Black,
-                fontSize = 20.sp,
-                textAlign = TextAlign.Center,
-                fontWeight = FontWeight.Bold,
+            Button(
+                onClick = {
+                    viewModel.nextQuestion()
+                    scope.launch {
+                        sheetState.collapse()
+                    }
+                },
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFD6EAF8)),
                 modifier = Modifier
                     .weight(1f)
-                    .wrapContentSize()
-                    .padding(8.dp)
-            )
-
-            // Next Button
-
-            if (viewModel.isAnswerCorrectState.collectAsState().value != null) {
-                Button(
-                    onClick = { viewModel.nextQuestion(); scope.launch { sheetState.collapse() } },
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFD6EAF8)),
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth()
-                        .wrapContentHeight()
-                        .padding(8.dp),
-                ) {
-                    Text(
-                        text = "Next",
-                        fontSize = 20.sp,
-                        textAlign = TextAlign.Center,
-                    )
-                }
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .padding(8.dp),
+            ) {
+                Text(
+                    text = "Next Question",
+                    fontSize = 20.sp,
+                    textAlign = TextAlign.Center
+                )
             }
         }
+
+
     }
 }
