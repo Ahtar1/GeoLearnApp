@@ -5,10 +5,13 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Card
@@ -83,6 +86,72 @@ fun MatchingScreen(
             }
         }
         if (viewModel.chosenCountriesSeparatedState.collectAsState().value.isNotEmpty()){
+
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(3),
+                verticalArrangement = Arrangement.SpaceBetween,
+                contentPadding = PaddingValues(8.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(8.dp)
+            ) {
+                items(12) { index ->
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        propagateMinConstraints = false,
+                        modifier = Modifier
+                            .aspectRatio(0.70f)
+                            .padding(8.dp)
+                            .border(
+                                width = 1.dp,
+                                color = Color.Black,
+                                shape = RoundedCornerShape(8.dp)
+                            )
+                            .clip(RoundedCornerShape(8.dp))
+                            .clickable(enabled = !viewModel.correctAnswersState.collectAsState().value.contains(index)) { viewModel.onCountryClicked(index) }
+                            .background(color = ((if (viewModel.correctAnswersState.collectAsState().value.contains(
+                                    index
+                                )
+                            ) {
+                                Color(0xFF50C878)
+                            } else if (viewModel.clickedButtonState.collectAsState().value == index) {
+                                Color.Gray
+                            } else if(viewModel.wrongAnswersState.collectAsState().value.contains(index)){
+                                Color.Red
+                            } else {
+                                Color.White
+                            })))
+                    )
+                    {
+                        androidx.compose.animation.AnimatedVisibility(
+                            visible = !viewModel.correctAnswersState.collectAsState().value.contains(index),
+                            exit = fadeOut(tween(2000, easing = LinearEasing))
+                        ) {
+                            Text(
+                                text = viewModel.chosenCountriesSeparatedState.collectAsState().value[index],
+                                fontSize = 22.sp,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier
+                                    .wrapContentSize()
+                                    .padding(8.dp)
+                                    .clip(RoundedCornerShape(8.dp))
+                            )
+                        }
+                        if (viewModel.correctAnswersState.collectAsState().value.contains(index)) {
+                            Icon(
+                                imageVector = androidx.compose.material.icons.Icons.Filled.Check,
+                                contentDescription = "Correct",
+                                tint = Color.White,
+                                modifier = Modifier
+                                    .wrapContentSize()
+                                    .padding(8.dp)
+                            )
+                        }
+                    }
+                }
+            }
+        /*
             Column(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -105,6 +174,11 @@ fun MatchingScreen(
                             .weight(1f)
                             .fillMaxSize()
                             .padding(8.dp)
+                            .border(
+                                width = 1.dp,
+                                color = Color.Black,
+                                shape = RoundedCornerShape(8.dp)
+                            )
                             .clip(RoundedCornerShape(8.dp))
                             .clickable(enabled = !viewModel.correctAnswersState.collectAsState().value.contains(0)) { viewModel.onCountryClicked(0) }
                             .background(color = ((if (viewModel.correctAnswersState.collectAsState().value.contains(
@@ -156,6 +230,11 @@ fun MatchingScreen(
                             .weight(1f)
                             .fillMaxSize()
                             .padding(8.dp)
+                            .border(
+                                width = 1.dp,
+                                color = Color.Black,
+                                shape = RoundedCornerShape(8.dp)
+                            )
                             .clip(RoundedCornerShape(8.dp))
                             .clickable(enabled = !viewModel.correctAnswersState.collectAsState().value.contains(1)) { viewModel.onCountryClicked(1) }
                             .background(color = ((if (viewModel.correctAnswersState.collectAsState().value.contains(
@@ -204,6 +283,11 @@ fun MatchingScreen(
                             .weight(1f)
                             .fillMaxSize()
                             .padding(8.dp)
+                            .border(
+                                width = 1.dp,
+                                color = Color.Black,
+                                shape = RoundedCornerShape(8.dp)
+                            )
                             .clip(RoundedCornerShape(8.dp))
                             .clickable(enabled = !viewModel.correctAnswersState.collectAsState().value.contains(2)) { viewModel.onCountryClicked(2) }
                             .background(color = ((if (viewModel.correctAnswersState.collectAsState().value.contains(
@@ -263,6 +347,11 @@ fun MatchingScreen(
                             .weight(1f)
                             .fillMaxSize()
                             .padding(8.dp)
+                            .border(
+                                width = 1.dp,
+                                color = Color.Black,
+                                shape = RoundedCornerShape(8.dp)
+                            )
                             .clip(RoundedCornerShape(8.dp))
                             .clickable(enabled = !viewModel.correctAnswersState.collectAsState().value.contains(3)) { viewModel.onCountryClicked(3) }
                             .background(color = ((if (viewModel.correctAnswersState.collectAsState().value.contains(
@@ -312,6 +401,11 @@ fun MatchingScreen(
                             .weight(1f)
                             .fillMaxSize()
                             .padding(8.dp)
+                            .border(
+                                width = 1.dp,
+                                color = Color.Black,
+                                shape = RoundedCornerShape(8.dp)
+                            )
                             .clip(RoundedCornerShape(8.dp))
                             .clickable(enabled = !viewModel.correctAnswersState.collectAsState().value.contains(4)) { viewModel.onCountryClicked(4) }
                             .background(color = ((if (viewModel.correctAnswersState.collectAsState().value.contains(
@@ -360,6 +454,11 @@ fun MatchingScreen(
                             .weight(1f)
                             .fillMaxSize()
                             .padding(8.dp)
+                            .border(
+                                width = 1.dp,
+                                color = Color.Black,
+                                shape = RoundedCornerShape(8.dp)
+                            )
                             .clip(RoundedCornerShape(8.dp))
                             .clickable(enabled = !viewModel.correctAnswersState.collectAsState().value.contains(5)) { viewModel.onCountryClicked(5) }
                             .background(color = ((if (viewModel.correctAnswersState.collectAsState().value.contains(
@@ -417,6 +516,11 @@ fun MatchingScreen(
                             .weight(1f)
                             .fillMaxSize()
                             .padding(8.dp)
+                            .border(
+                                width = 1.dp,
+                                color = Color.Black,
+                                shape = RoundedCornerShape(8.dp)
+                            )
                             .clip(RoundedCornerShape(8.dp))
                             .clickable(enabled = !viewModel.correctAnswersState.collectAsState().value.contains(6)) { viewModel.onCountryClicked(6) }
                             .background(color = ((if (viewModel.correctAnswersState.collectAsState().value.contains(
@@ -465,6 +569,11 @@ fun MatchingScreen(
                             .weight(1f)
                             .fillMaxSize()
                             .padding(8.dp)
+                            .border(
+                                width = 1.dp,
+                                color = Color.Black,
+                                shape = RoundedCornerShape(8.dp)
+                            )
                             .clip(RoundedCornerShape(8.dp))
                             .clickable(enabled = !viewModel.correctAnswersState.collectAsState().value.contains(7)) { viewModel.onCountryClicked(7) }
                             .background(color = ((if (viewModel.correctAnswersState.collectAsState().value.contains(
@@ -513,6 +622,11 @@ fun MatchingScreen(
                             .weight(1f)
                             .fillMaxSize()
                             .padding(8.dp)
+                            .border(
+                                width = 1.dp,
+                                color = Color.Black,
+                                shape = RoundedCornerShape(8.dp)
+                            )
                             .clip(RoundedCornerShape(8.dp))
                             .clickable(enabled = !viewModel.correctAnswersState.collectAsState().value.contains(8)) { viewModel.onCountryClicked(8) }
                             .background(color = ((if (viewModel.correctAnswersState.collectAsState().value.contains(
@@ -570,6 +684,11 @@ fun MatchingScreen(
                             .weight(1f)
                             .fillMaxSize()
                             .padding(8.dp)
+                            .border(
+                                width = 1.dp,
+                                color = Color.Black,
+                                shape = RoundedCornerShape(8.dp)
+                            )
                             .clip(RoundedCornerShape(8.dp))
                             .clickable(enabled = !viewModel.correctAnswersState.collectAsState().value.contains(9)) { viewModel.onCountryClicked(9) }
                             .background(color = ((if (viewModel.correctAnswersState.collectAsState().value.contains(
@@ -618,6 +737,11 @@ fun MatchingScreen(
                             .weight(1f)
                             .fillMaxSize()
                             .padding(8.dp)
+                            .border(
+                                width = 1.dp,
+                                color = Color.Black,
+                                shape = RoundedCornerShape(8.dp)
+                            )
                             .clip(RoundedCornerShape(8.dp))
                             .clickable(enabled = !viewModel.correctAnswersState.collectAsState().value.contains(10)) { viewModel.onCountryClicked(10) }
                             .background(color = ((if (viewModel.correctAnswersState.collectAsState().value.contains(
@@ -667,6 +791,11 @@ fun MatchingScreen(
                             .weight(1f)
                             .fillMaxSize()
                             .padding(8.dp)
+                            .border(
+                                width = 1.dp,
+                                color = Color.Black,
+                                shape = RoundedCornerShape(8.dp)
+                            )
                             .clip(RoundedCornerShape(8.dp))
                             .clickable(enabled = !viewModel.correctAnswersState.collectAsState().value.contains(11)) { viewModel.onCountryClicked(11) }
                             .background(color = ((if (viewModel.correctAnswersState.collectAsState().value.contains(
@@ -711,6 +840,8 @@ fun MatchingScreen(
                     }
                 }
             }
+
+             */
         }
 
     }
@@ -779,88 +910,68 @@ fun BackDialog(navController: NavHostController, dialogState: MutableState<Boole
 @Composable
 fun MatchingComposablePreview() {
 
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center,
+    val viewModel: MatchingViewModel = hiltViewModel()
+
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(3),
+        contentPadding = PaddingValues(8.dp),
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .padding(8.dp)
     ) {
-
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxSize()
-                .padding(8.dp)
-                .clip(RoundedCornerShape(8.dp))
-        )
-        {
-            androidx.compose.animation.AnimatedVisibility(
-                visible = true,
-                exit = fadeOut(tween(2000, easing = LinearEasing))
-            ) {
-                Text(
-                    text = "\nAustria",
-                    fontSize = 22.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(8.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(color = Color.White)
-                )
+        items(12) { index ->
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(8.dp)
+                    .border(
+                        width = 1.dp,
+                        color = Color.Black,
+                        shape = RoundedCornerShape(8.dp)
+                    )
+                    .clip(RoundedCornerShape(8.dp))
+                    .clickable(enabled = !viewModel.correctAnswersState.collectAsState().value.contains(index)) { viewModel.onCountryClicked(index) }
+                    .background(color = ((if (viewModel.correctAnswersState.collectAsState().value.contains(
+                            index
+                        )
+                    ) {
+                        Color(0xFF50C878)
+                    } else if (viewModel.clickedButtonState.collectAsState().value == index) {
+                        Color.Gray
+                    } else if(viewModel.wrongAnswersState.collectAsState().value.contains(index)){
+                        Color.Red
+                    } else {
+                        Color.White
+                    })))
+            )
+            {
+                AnimatedVisibility(
+                    visible = !viewModel.correctAnswersState.collectAsState().value.contains(index),
+                    exit = fadeOut(tween(2000, easing = LinearEasing))
+                ) {
+                    Text(
+                        text = viewModel.chosenCountriesSeparatedState.collectAsState().value[index],
+                        fontSize = 22.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .wrapContentSize()
+                            .padding(8.dp)
+                            .clip(RoundedCornerShape(8.dp))
+                    )
+                }
+                if (viewModel.correctAnswersState.collectAsState().value.contains(index)) {
+                    Icon(
+                        imageVector = androidx.compose.material.icons.Icons.Filled.Check,
+                        contentDescription = "Correct",
+                        tint = Color.White,
+                        modifier = Modifier
+                            .wrapContentSize()
+                            .padding(8.dp)
+                    )
+                }
             }
         }
-
-
-
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .weight(1f)
-                .padding(8.dp))
-        {
-            androidx.compose.animation.AnimatedVisibility(
-                visible = true,
-                exit = fadeOut(tween(2000, easing = LinearEasing))
-            ) {
-                Text(
-                    text = "Austria",
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(8.dp)
-                        .background(color = Color.White)
-                )
-            }
-        }
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .weight(1f)
-                .padding(8.dp)
-        )
-        {
-            androidx.compose.animation.AnimatedVisibility(
-                visible = true,
-                exit = fadeOut(tween(2000, easing = LinearEasing))
-            ) {
-                Text(
-                    text = "Austria",
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(8.dp)
-                        .background(color = Color.White)
-                )
-            }
-        }
-
     }
 }

@@ -94,31 +94,35 @@ class MatchingViewModel @Inject constructor(
             }
         }
 
-        if (_clickedButtonState.value==-1){
-            _clickedButtonState.value = answer
-            println("first clicked: $answer")
-        } else{
-            println("second clicked: $answer")
-
-            if(
-                _chosenCountriesState.value.contains(Country(name = _chosenCountriesSeparatedState.value[_clickedButtonState.value], capital = _chosenCountriesSeparatedState.value[answer], iso2 = "", iso3 = ""))
-                ||
-                _chosenCountriesState.value.contains(Country(name = _chosenCountriesSeparatedState.value[answer], capital = _chosenCountriesSeparatedState.value[_clickedButtonState.value], iso2 = "", iso3 = ""))
-            )
-            {
-                _correctAnswersState.value = _correctAnswersState.value + answer + _clickedButtonState.value
-                _clickedButtonState.value = -1
-                println("answer: $answer")
+        if (_clickedButtonState.value==answer){
+            _clickedButtonState.value = -1
+        } else {
+            if (_clickedButtonState.value==-1){
+                _clickedButtonState.value = answer
+                println("first clicked: $answer")
             } else{
-                val lastClicked=_clickedButtonState.value
-                _clickedButtonState.value = -1
-                println("wrong answer")
-                _wrongAnswersState.value = _wrongAnswersState.value + answer + lastClicked
-                println(_wrongAnswersState.value)
-                _timeState.value+=1
-                viewModelScope.launch(Dispatchers.IO) {
-                    delay(1000)
-                    _wrongAnswersState.value = listOf()
+                println("second clicked: $answer")
+
+                if(
+                    _chosenCountriesState.value.contains(Country(name = _chosenCountriesSeparatedState.value[_clickedButtonState.value], capital = _chosenCountriesSeparatedState.value[answer], iso2 = "", iso3 = ""))
+                    ||
+                    _chosenCountriesState.value.contains(Country(name = _chosenCountriesSeparatedState.value[answer], capital = _chosenCountriesSeparatedState.value[_clickedButtonState.value], iso2 = "", iso3 = ""))
+                )
+                {
+                    _correctAnswersState.value = _correctAnswersState.value + answer + _clickedButtonState.value
+                    _clickedButtonState.value = -1
+                    println("answer: $answer")
+                } else{
+                    val lastClicked=_clickedButtonState.value
+                    _clickedButtonState.value = -1
+                    println("wrong answer")
+                    _wrongAnswersState.value = _wrongAnswersState.value + answer + lastClicked
+                    println(_wrongAnswersState.value)
+                    _timeState.value+=1
+                    viewModelScope.launch(Dispatchers.IO) {
+                        delay(1000)
+                        _wrongAnswersState.value = listOf()
+                    }
                 }
             }
         }

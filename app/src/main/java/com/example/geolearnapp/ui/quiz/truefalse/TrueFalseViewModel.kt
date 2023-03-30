@@ -112,8 +112,8 @@ class TrueFalseViewModel @Inject constructor(
                 _isGameFinishedState.value = true
                 viewModelScope.launch(Dispatchers.IO) {
 
-                    val highScore = countryRepository.getHighScore("truefalse")
-                    if (_scoreState.value > highScore) {
+                    //val highScore = countryRepository.getHighScore("truefalse")
+                    if (_scoreState.value > _highScoreState.value) {
                         countryRepository.insertHighScore("truefalse", _scoreState.value)
                         _highScoreState.value = _scoreState.value
                     }
