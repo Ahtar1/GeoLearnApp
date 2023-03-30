@@ -206,8 +206,8 @@ fun TrueFalseScreen(
 
         if (viewModel.isGameFinishedState.collectAsState().value) {
             FinishedGameDiolog(
-                highScore = viewModel.highScoreState.collectAsState().value,
-                score = viewModel.scoreState.collectAsState().value,
+                highScore = viewModel.highScoreState.collectAsState().value.toString(),
+                score = viewModel.scoreState.collectAsState().value.toString(),
                 onGoToMenu = { viewModel.onGoToMenu(navController) },
                 onPlayAgain = { viewModel.onPlayAgain(); scope.launch { sheetState.collapse() }}
             )

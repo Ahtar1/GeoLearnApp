@@ -19,8 +19,8 @@ import androidx.compose.ui.window.DialogProperties
 fun FinishedGameDiolog(
     onPlayAgain: () -> Unit,
     onGoToMenu: () -> Unit,
-    score: Int,
-    highScore: Int
+    score: String,
+    highScore: String
 ) {
     Dialog(
         onDismissRequest = { onGoToMenu() },

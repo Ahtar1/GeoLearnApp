@@ -19,6 +19,7 @@ import androidx.navigation.compose.composable
 
 @Composable
 fun QuizScreen(navController: NavHostController) {
+    println("quiz screen")
 
     Column(modifier = Modifier.fillMaxSize().padding(start=8.dp,end=8.dp,top=16.dp,bottom=16.dp)) {
         Row(modifier = Modifier.weight(1f)) {

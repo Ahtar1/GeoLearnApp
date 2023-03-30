@@ -102,7 +102,7 @@ fun HomeNavGraph(navController: NavHostController) {
             WrittenScreen()
         }
         composable("matching") {
-            MatchingScreen()
+            MatchingScreen(navController)
         }
 
     }
