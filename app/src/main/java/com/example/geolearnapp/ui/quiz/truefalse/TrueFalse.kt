@@ -81,7 +81,6 @@ fun TrueFalseScreen(
 
             // Question
 
-
             Column(modifier = Modifier.padding(16.dp)) {
 
                 Card(
@@ -199,9 +198,7 @@ fun TrueFalseScreen(
                         )
                     }
                 }
-
             }
-
         }
 
         if (viewModel.isGameFinishedState.collectAsState().value) {
@@ -220,31 +217,5 @@ fun TrueFalseScreen(
         if (dialogState.value) {
             BackDialog(navController, dialogState)
         }
-    }
-
-}
-
-@Preview
-@Composable
-fun SimpeComposablePreview() {
-
-    Card(
-        elevation = 8.dp,
-        shape = RoundedCornerShape(8.dp),
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-
-        Text(
-            text = "capital",
-            fontSize = 32.sp,
-            textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Normal,
-            modifier = Modifier
-                .wrapContentSize()
-                .padding(16.dp)
-        )
-
     }
 }

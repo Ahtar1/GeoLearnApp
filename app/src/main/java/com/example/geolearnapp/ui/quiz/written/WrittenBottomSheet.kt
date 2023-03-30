@@ -32,12 +32,15 @@ fun WrittenBottomSheet(
             .fillMaxWidth()
             .height(250.dp)
     ) {
+
         // Congratulation
         Column(
             modifier = Modifier.height(250.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+
             if (viewModel.isAnswerCorrectState.collectAsState().value == true) {
+
                 Text(
                     text = "Congratulations!",
                     color = Color(0xFF50C878),
@@ -49,6 +52,7 @@ fun WrittenBottomSheet(
                         .wrapContentSize()
                         .padding(8.dp)
                 )
+
             } else if (viewModel.isAnswerCorrectState.collectAsState().value == false) {
                 Text(
                     text = "Wrong Answer!",
@@ -79,6 +83,7 @@ fun WrittenBottomSheet(
             // Next Button
 
             if (viewModel.isAnswerCorrectState.collectAsState().value != null) {
+
                 Button(
                     onClick = { viewModel.nextQuestion(); scope.launch { sheetState.collapse() } },
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFD6EAF8)),

@@ -172,19 +172,8 @@ class MatchingViewModel @Inject constructor(
     }
 
     fun onGoToMenu(navHostController: NavHostController){
-        println("go to menu")
-
-        _chosenCountriesState.value = listOf()
-        println("go to menu 2")
-        _chosenCountriesSeparatedState.value = listOf()
-        _clickedButtonState.value = -1
-        _correctAnswersState.value = listOf()
-        _wrongAnswersState.value = listOf()
-        _timeState.value = 0.0
         _isGameFinishedState.value = false
-
         navHostController.navigate("quiz")
         navHostController.clearBackStack("matching")
-        println("go to menu 3")
     }
 }

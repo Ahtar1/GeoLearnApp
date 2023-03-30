@@ -131,17 +131,12 @@ fun WrittenScreen(
                                 text = "I don't know"
                             )
                         }
-
                     }
-
-
                 }
-
             }
-
-
         }
     }
+
     if (viewModel.isGameFinishedState.collectAsState().value) {
         FinishedGameDiolog(
             highScore = viewModel.highScoreState.collectAsState().value.toString(),

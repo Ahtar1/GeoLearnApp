@@ -58,7 +58,6 @@ fun MCBottomSheet(
                         .wrapContentSize()
                         .padding(8.dp)
                 )
-
             }
 
             Button(
@@ -82,7 +81,5 @@ fun MCBottomSheet(
                 )
             }
         }
-
-
     }
 }

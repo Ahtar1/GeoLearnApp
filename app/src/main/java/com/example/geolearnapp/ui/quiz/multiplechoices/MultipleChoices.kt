@@ -78,7 +78,6 @@ fun MultipleChoicesScreen(
                         .padding(16.dp)
                 )
 
-
                 Text(
                     text = "${viewModel.chosenCapitalState.collectAsState().value} is the capital of which country?",
                     fontSize = 25.sp,
@@ -111,7 +110,6 @@ fun MultipleChoicesScreen(
                         textAlign = TextAlign.Center,
                     )
                 }
-
 
                 Button(
                     onClick = { viewModel.checkAnswer(1); scope.launch { sheetState.expand() } },
@@ -184,6 +182,7 @@ fun MultipleChoicesScreen(
             }
 
         }
+
         if (viewModel.isGameFinishedState.collectAsState().value) {
             FinishedGameDiolog(
                 highScore = viewModel.highScoreState.collectAsState().value.toString(),
@@ -192,6 +191,7 @@ fun MultipleChoicesScreen(
                 onPlayAgain = { viewModel.onPlayAgain(); scope.launch { sheetState.collapse() }}
             )
         }
+
         BackHandler(enabled = true) {
             dialogState.value = true
         }
