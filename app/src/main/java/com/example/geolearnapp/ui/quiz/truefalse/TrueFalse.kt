@@ -97,6 +97,7 @@ fun TrueFalseScreen(
 
                     Text(
                         text = name,
+                        color = Color.Black,
                         fontSize = 32.sp,
                         textAlign = TextAlign.Center,
                         fontWeight = FontWeight.Normal,
@@ -134,6 +135,7 @@ fun TrueFalseScreen(
                     Text(
                         text = capital,
                         fontSize = 32.sp,
+                        color = Color.Black,
                         textAlign = TextAlign.Center,
                         fontWeight = FontWeight.Normal,
                         modifier = Modifier
@@ -162,6 +164,7 @@ fun TrueFalseScreen(
                     ) {
                         Text(
                             text = "True ",
+                            color = Color.Black,
                             fontSize = 20.sp,
                             textAlign = TextAlign.Center,
                         )
@@ -186,6 +189,7 @@ fun TrueFalseScreen(
                     ) {
                         Text(
                             text = "False ",
+                            color = Color.Black,
                             fontSize = 20.sp,
                             textAlign = TextAlign.Center,
                         )

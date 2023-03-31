@@ -73,7 +73,7 @@ class MultipleChoicesViewModel @Inject constructor(
         _correctAnswerState.value = randomCountry.name
         while (_optionsState.value.size < 3){
             val country = _countriesState.value.random()
-            if (country.capital != _chosenCapitalState.value){
+            if (country.capital != _chosenCapitalState.value && !_optionsState.value.contains(country.name)){
                 _optionsState.value = _optionsState.value + country.name
             }
         }

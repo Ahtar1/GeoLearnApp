@@ -22,8 +22,8 @@ import kotlinx.coroutines.launch
 fun WrittenBottomSheet(
     viewModel: WrittenViewModel,
     scope: CoroutineScope = rememberCoroutineScope(),
-    sheetState: BottomSheetState,)
-{
+    sheetState: BottomSheetState,
+) {
 
     Card(
         elevation = 8.dp,
@@ -65,6 +65,18 @@ fun WrittenBottomSheet(
                         .wrapContentSize()
                         .padding(8.dp)
                 )
+            } else {
+                Text(
+                    text = "Never Late To Learn!",
+                    color = Color.Red,
+                    fontSize = 20.sp,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .weight(1f)
+                        .wrapContentSize()
+                        .padding(8.dp)
+                )
             }
 
             // True Answer
@@ -82,24 +94,23 @@ fun WrittenBottomSheet(
 
             // Next Button
 
-            if (viewModel.isAnswerCorrectState.collectAsState().value != null) {
 
-                Button(
-                    onClick = { viewModel.nextQuestion(); scope.launch { sheetState.collapse() } },
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFD6EAF8)),
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth()
-                        .wrapContentHeight()
-                        .padding(8.dp),
-                ) {
-                    Text(
-                        text = "Next",
-                        fontSize = 20.sp,
-                        textAlign = TextAlign.Center,
-                    )
-                }
+            Button(
+                onClick = { viewModel.nextQuestion(); scope.launch { sheetState.collapse() } },
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFD6EAF8)),
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .padding(8.dp),
+            ) {
+                Text(
+                    text = "Next",
+                    fontSize = 20.sp,
+                    textAlign = TextAlign.Center,
+                )
             }
+
         }
     }
 }

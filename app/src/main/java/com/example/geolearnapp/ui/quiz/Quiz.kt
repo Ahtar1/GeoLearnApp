@@ -36,6 +36,7 @@ fun QuizScreen(navController: NavHostController) {
                 Text(
                     text = "Multiple Choice",
                     fontSize = 20.sp,
+                    color = Color.Black,
                     textAlign = TextAlign.Center,
                 )
             }
@@ -51,6 +52,7 @@ fun QuizScreen(navController: NavHostController) {
                 Text(
                     text = "True False",
                     fontSize = 20.sp,
+                    color = Color.Black,
                     textAlign = TextAlign.Center,
                 )
             }
@@ -68,6 +70,7 @@ fun QuizScreen(navController: NavHostController) {
                 Text(
                     text = "Written",
                     fontSize = 20.sp,
+                    color = Color.Black,
                     textAlign = TextAlign.Center,
                 )
             }
@@ -83,6 +86,7 @@ fun QuizScreen(navController: NavHostController) {
                 Text(
                     text = "Matching",
                     fontSize = 20.sp,
+                    color = Color.Black,
                     textAlign = TextAlign.Center,
                 )
             }

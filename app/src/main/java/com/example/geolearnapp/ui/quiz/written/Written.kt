@@ -116,19 +116,25 @@ fun WrittenScreen(
                                 .wrapContentSize()
                                 .padding(16.dp)
                         ) {
-                            Text(text = "Check")
+                            Text(
+                                text = "Check",
+                                color = Color.White
+                            )
                         }
 
                         TextButton(
                             onClick = {
-                                viewModel.checkAnswer(""); viewModel.nextQuestion()
+                                viewModel.checkAnswer("don't know")
+                                keyboardController?.hide()
+                                scope.launch { sheetState.expand() }
                             },
                             modifier = Modifier
                                 .wrapContentSize()
                                 .padding(16.dp)
                         ) {
                             Text(
-                                text = "I don't know"
+                                text = "I don't know",
+                                color = Color.White
                             )
                         }
                     }

@@ -130,6 +130,7 @@ fun MatchingScreen(
                                 text = viewModel.chosenCountriesSeparatedState.collectAsState().value[index],
                                 fontSize = 22.sp,
                                 fontWeight = FontWeight.Bold,
+                                color = Color.Black,
                                 textAlign = TextAlign.Center,
                                 modifier = Modifier
                                     .wrapContentSize()

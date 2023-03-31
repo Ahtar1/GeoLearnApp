@@ -48,18 +48,22 @@ fun LearnScreen() {
             Box(
                 modifier = Modifier
                     .padding(start = 12.dp, end = 12.dp, top = 12.dp, bottom = 12.dp)
-                    .background(color = Color.White)
                     .clip(RoundedCornerShape(6.dp))
+                    .background(color = Color.White)
                     .border(
                         width = 0.5.dp,
                         color = Color.Black,
                         shape = RoundedCornerShape(6.dp)
                     )
             ){
-                Row(modifier = Modifier.padding(top = 12.dp, bottom = 12.dp)) {
+                Row(
+                    modifier = Modifier
+                        .padding(top = 12.dp, bottom = 12.dp)
+                ) {
                     Text(
                         text = "Country",
                         fontSize = 24.sp,
+                        color= Color.Black,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
                         modifier = Modifier
@@ -78,6 +82,7 @@ fun LearnScreen() {
 
                     Text(
                         text = "Capital",
+                        color= Color.Black,
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
@@ -147,40 +152,49 @@ fun SimpleComposablePreview() {
 
     Box(
         modifier = Modifier
-            .fillMaxSize()
-            .clip(RoundedCornerShape(24.dp))
-            .background(Color.Green)
-    ) {
-        Row(
-            modifier = Modifier
-                .wrapContentSize(Alignment.Center),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceAround
-        ) {
+            .padding(start = 12.dp, end = 12.dp, top = 12.dp, bottom = 12.dp)
+            .clip(RoundedCornerShape(6.dp))
+            .background(color = Color.White)
+            .border(
+                width = 0.5.dp,
+                color = Color.Black,
+                shape = RoundedCornerShape(6.dp)
+            )
+    ){
+        Row{
             Text(
-                text = "Ugande" + ": ",
+                text = "Country",
                 fontSize = 24.sp,
+                color= Color.Black,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.weight(4f),
-                color = Color.Black
+                modifier = Modifier
+                    .fillMaxWidth(0.5f)
+                    .weight(4f)
+
             )
+
             Text(
-                text = ": ",
+                text = "|",
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.weight(2f),
                 color = Color.Black
             )
+
             Text(
-                text = if ("" == "") "None" else "Kampala",
+                text = "Capital",
+                color= Color.Black,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.weight(4f),
-                color = Color.DarkGray
+                modifier = Modifier
+                    .fillMaxWidth(0.5f)
+                    .weight(4f)
+
             )
+
         }
     }
 

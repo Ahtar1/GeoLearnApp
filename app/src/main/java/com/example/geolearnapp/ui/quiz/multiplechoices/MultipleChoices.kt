@@ -106,6 +106,7 @@ fun MultipleChoicesScreen(
                     Text(
                         text = viewModel.optionsState.collectAsState().value[0],
                         fontSize = 20.sp,
+                        color = Color.Black,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
                     )
@@ -129,6 +130,7 @@ fun MultipleChoicesScreen(
                     Text(
                         text = viewModel.optionsState.collectAsState().value[1],
                         fontSize = 20.sp,
+                        color = Color.Black,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
                     )
@@ -151,6 +153,7 @@ fun MultipleChoicesScreen(
                 ) {
                     Text(
                         text = viewModel.optionsState.collectAsState().value[2],
+                        color = Color.Black,
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
@@ -174,6 +177,7 @@ fun MultipleChoicesScreen(
                 ) {
                     Text(
                         text = viewModel.optionsState.collectAsState().value[3],
+                        color = Color.Black,
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,

@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -45,10 +46,10 @@ fun BackDialog(navController: NavHostController, dialogState: MutableState<Boole
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
                     Button(onClick = { navController.navigate("quiz"); dialogState.value = false }) {
-                        Text("Yes")
+                        Text("Yes", color = Color.White)
                     }
                     Button(onClick = { dialogState.value = false }) {
-                        Text("No")
+                        Text("No", color = Color.White)
                     }
                 }
             }

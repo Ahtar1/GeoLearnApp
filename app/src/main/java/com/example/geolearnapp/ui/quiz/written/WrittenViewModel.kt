@@ -57,13 +57,21 @@ class WrittenViewModel @Inject constructor(
 
     fun getChosenCountry(){
         val randomCountry= _countriesState.value.random()
+        if (randomCountry.capital != ""){
+            _chosenCountryState.value = randomCountry
+        } else{
+            getChosenCountry()
+        }
 
-        _chosenCountryState.value = randomCountry
     }
 
     fun checkAnswer(answer: String){
+
         _isAnswerCorrectState.value = answer.equals(_chosenCountryState.value.capital, ignoreCase = true)
-        if (_isAnswerCorrectState.value == false){
+        if (answer=="don't know"){
+            _isAnswerCorrectState.value = null
+        }
+        if (_isAnswerCorrectState.value != true){
             _wrongAnswerState.value += 1
         } else{
             _scoreState.value += 1
