@@ -2,7 +2,7 @@
 
 GeoLearnApp is an android application developed for learning the capitals of countries. It contains various quiz types like written, multiple choice, true false and matching.
 
-# ScreenShots
+# Screenshots
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/82377570/229383445-e95336c4-27a4-4669-8bad-85fdae1cc538.jpg" width="16%" />  
