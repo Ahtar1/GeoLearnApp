@@ -1,12 +1,11 @@
 package com.example.geolearnapp.ui.quiz.multiplechoices
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import com.example.geolearnapp.data.database.entity.Country
-import com.example.geolearnapp.data.repository.CountryRepository
+import com.example.geolearnapp.domain.repository.CountryRepository
+import com.example.geolearnapp.domain.use_case.CountryUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MultipleChoicesViewModel @Inject constructor(
-    val countryRepository: CountryRepository
+    val countryUseCases: CountryUseCases
 ): ViewModel() {
 
     private val _countriesState = MutableStateFlow(listOf<Country>())
@@ -58,8 +57,8 @@ class MultipleChoicesViewModel @Inject constructor(
 
     fun getCountries(){
         viewModelScope.launch(Dispatchers.IO) {
-            _countriesState.value= countryRepository.getCountriesFromDB()
-            _highScoreState.value = countryRepository.getHighScore("multiplechoices")
+            _countriesState.value= countryUseCases.getCountriesFromDB()
+            _highScoreState.value = countryUseCases.getHighScore("multiplechoices")
             getChosenCapitalAndOptions()
         }
     }
@@ -95,9 +94,9 @@ class MultipleChoicesViewModel @Inject constructor(
                 _isGameFinishedState.value = true
                 viewModelScope.launch(Dispatchers.IO) {
 
-                    val highScore = countryRepository.getHighScore("multiplechoices")
+                    val highScore = countryUseCases.getHighScore("multiplechoices")
                     if (_scoreState.value > highScore) {
-                        countryRepository.insertHighScore("multiplechoices", _scoreState.value)
+                        countryUseCases.insertHighScore("multiplechoices", _scoreState.value)
                         _highScoreState.value = _scoreState.value
                     }
                 }

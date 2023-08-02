@@ -54,7 +54,7 @@ fun MultipleChoicesScreen(
         Column {
 
             QuizTopCard(
-                title = "Multiple Choices",
+                title = "Multiple Choice",
                 wrongAnswerState = viewModel.wrongAnswerState.collectAsState().value,
             )
 

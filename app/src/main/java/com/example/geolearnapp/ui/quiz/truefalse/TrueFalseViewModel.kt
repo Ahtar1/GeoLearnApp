@@ -4,7 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import com.example.geolearnapp.data.database.entity.Country
-import com.example.geolearnapp.data.repository.CountryRepository
+import com.example.geolearnapp.domain.repository.CountryRepository
+import com.example.geolearnapp.domain.use_case.CountryUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TrueFalseViewModel @Inject constructor(
-    private val countryRepository: CountryRepository
+    val countryUseCases: CountryUseCases
 ) : ViewModel() {
 
     private val _isQuestionTrueState = MutableStateFlow<Boolean?>(null)
@@ -54,8 +55,8 @@ class TrueFalseViewModel @Inject constructor(
 
     fun getCountries() {
         viewModelScope.launch(Dispatchers.IO) {
-            _countriesState.value = countryRepository.getCountriesFromDB()
-            _highScoreState.value = countryRepository.getHighScore("truefalse")
+            _countriesState.value = countryUseCases.getCountriesFromDB()
+            _highScoreState.value = countryUseCases.getHighScore("truefalse")
             getCountry()
         }
     }
@@ -114,7 +115,7 @@ class TrueFalseViewModel @Inject constructor(
 
                     //val highScore = countryRepository.getHighScore("truefalse")
                     if (_scoreState.value > _highScoreState.value) {
-                        countryRepository.insertHighScore("truefalse", _scoreState.value)
+                        countryUseCases.insertHighScore("truefalse", _scoreState.value)
                         _highScoreState.value = _scoreState.value
                     }
                 }

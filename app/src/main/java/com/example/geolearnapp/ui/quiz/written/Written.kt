@@ -134,7 +134,7 @@ fun WrittenScreen(
                         ) {
                             Text(
                                 text = "I don't know",
-                                color = Color.White
+                                color = Color.Black
                             )
                         }
                     }

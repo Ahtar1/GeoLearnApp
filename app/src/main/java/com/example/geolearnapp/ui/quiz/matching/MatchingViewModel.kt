@@ -4,24 +4,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import com.example.geolearnapp.data.database.entity.Country
-import com.example.geolearnapp.data.repository.CountryRepository
+import com.example.geolearnapp.domain.repository.CountryRepository
+import com.example.geolearnapp.domain.use_case.CountryUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import java.time.LocalTime
 import java.util.*
 import javax.inject.Inject
 import kotlin.concurrent.fixedRateTimer
-import kotlin.math.round
 import kotlin.math.roundToInt
 
 @HiltViewModel
 class MatchingViewModel @Inject constructor(
-    val countryRepository: CountryRepository
+    val countryUseCases: CountryUseCases
 ): ViewModel() {
 
     private val _countriesState = MutableStateFlow(listOf<Country>())
@@ -58,14 +56,21 @@ class MatchingViewModel @Inject constructor(
 
     init {
         getCountriesFromDB()
+
         println("init")
+
+        if (_timeState.value == 0.0){
+            timer= fixedRateTimer("timer", false, 0L, 100L) {
+                _timeState.value = _timeState.value + 0.1
+            }
+        }
     }
 
     private fun getCountriesFromDB(){
         viewModelScope.launch(Dispatchers.IO) {
-            _countriesState.value = countryRepository.getCountriesFromDB()
-            _highScoreState.value = countryRepository.getHighScore("matching")
-            _highScoreDecimalState.value = countryRepository.getHighScore("matchingDecimal")
+            _countriesState.value = countryUseCases.getCountriesFromDB()
+            _highScoreState.value = countryUseCases.getHighScore("matching")
+            _highScoreDecimalState.value = countryUseCases.getHighScore("matchingDecimal")
             println("highScoredecimal from db: ${_highScoreDecimalState.value}")
             println(_countriesState.value[0].name)
             getCountries()
@@ -88,11 +93,6 @@ class MatchingViewModel @Inject constructor(
     }
 
     fun onCountryClicked(answer: Int){
-        if (_timeState.value == 0.0){
-            timer= fixedRateTimer("timer", false, 0L, 100L) {
-                _timeState.value = _timeState.value + 0.1
-            }
-        }
 
         if (_clickedButtonState.value==answer){
             _clickedButtonState.value = -1
@@ -137,8 +137,8 @@ class MatchingViewModel @Inject constructor(
                     println(_timeState.value.toString() + " " + _timeState.value.toInt())
 
                     println("highScoredecimal from new high: ${_highScoreDecimalState.value}")
-                    countryRepository.insertHighScore("matching", _highScoreState.value)
-                    countryRepository.insertHighScore("matchingDecimal", _highScoreDecimalState.value)
+                    countryUseCases.insertHighScore("matching", _highScoreState.value)
+                    countryUseCases.insertHighScore("matchingDecimal", _highScoreDecimalState.value)
                     _isGameFinishedState.value = true
                 }
             } else if (_highScoreState.value == 0){
@@ -147,8 +147,8 @@ class MatchingViewModel @Inject constructor(
                     _highScoreDecimalState.value = ((_timeState.value-_timeState.value.toInt())*10).roundToInt()
                     println(_timeState.value.toString() + " " + _timeState.value.toInt())
                     println("highScoredecimal from first high: ${_highScoreDecimalState.value}")
-                    countryRepository.insertHighScore("matching", _highScoreState.value)
-                    countryRepository.insertHighScore("matchingDecimal", _highScoreDecimalState.value)
+                    countryUseCases.insertHighScore("matching", _highScoreState.value)
+                    countryUseCases.insertHighScore("matchingDecimal", _highScoreDecimalState.value)
                     _isGameFinishedState.value = true
                 }
             } else{
@@ -162,13 +162,17 @@ class MatchingViewModel @Inject constructor(
         _chosenCountriesState.value = emptyList()
         _chosenCountriesSeparatedState.value = emptyList()
         _clickedButtonState.value = -1
-        _correctAnswersState.value = listOf()
-        _wrongAnswersState.value = listOf()
+        _correctAnswersState.value = emptyList()
+        _wrongAnswersState.value = emptyList()
         _timeState.value = 0.0
         _isGameFinishedState.value = false
 
 
         getCountries()
+
+        timer= fixedRateTimer("timer", false, 0L, 100L) {
+            _timeState.value = _timeState.value + 0.1
+        }
     }
 
     fun onGoToMenu(navHostController: NavHostController){

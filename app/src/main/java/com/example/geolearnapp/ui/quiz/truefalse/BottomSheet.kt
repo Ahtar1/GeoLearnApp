@@ -66,7 +66,7 @@ fun BottomSheet(
             println(viewModel.trueCapitalState.collectAsState().value)
             Text(
                 text = "The Capital of ${viewModel.countryState.collectAsState().value.name} is ${viewModel.trueCapitalState.collectAsState().value}",
-                color = Color.Black,
+                color = MaterialTheme.colors.secondaryVariant,
                 fontSize = 20.sp,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,
@@ -92,6 +92,7 @@ fun BottomSheet(
                         text = "Next",
                         fontSize = 20.sp,
                         textAlign = TextAlign.Center,
+                        color = Color.Black
                     )
                 }
             }

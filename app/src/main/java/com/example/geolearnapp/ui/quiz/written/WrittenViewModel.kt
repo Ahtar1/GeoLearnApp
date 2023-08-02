@@ -1,23 +1,21 @@
 package com.example.geolearnapp.ui.quiz.written
 
-import androidx.compose.ui.text.intl.Locale
-import androidx.compose.ui.text.toLowerCase
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import com.example.geolearnapp.data.database.entity.Country
-import com.example.geolearnapp.data.repository.CountryRepository
+import com.example.geolearnapp.domain.repository.CountryRepository
+import com.example.geolearnapp.domain.use_case.CountryUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class WrittenViewModel @Inject constructor(
-    val countryRepository: CountryRepository
+    val countryUseCases: CountryUseCases
 ): ViewModel() {
 
     private val _countriesState = MutableStateFlow(listOf<Country>())
@@ -48,8 +46,8 @@ class WrittenViewModel @Inject constructor(
 
     fun getCountriesFromDB(){
         viewModelScope.launch(Dispatchers.IO) {
-            _countriesState.value = countryRepository.getCountriesFromDB()
-            _highScoreState.value = countryRepository.getHighScore("written")
+            _countriesState.value = countryUseCases.getCountriesFromDB()
+            _highScoreState.value = countryUseCases.getHighScore("written")
             getChosenCountry()
         }
 
@@ -80,7 +78,7 @@ class WrittenViewModel @Inject constructor(
             if (_scoreState.value > _highScoreState.value){
                 _highScoreState.value = _scoreState.value
                 viewModelScope.launch(Dispatchers.IO) {
-                    countryRepository.insertHighScore("written", _scoreState.value)
+                    countryUseCases.insertHighScore("written", _scoreState.value)
                 }
             }
             _isGameFinishedState.value = true

@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Book
 import androidx.compose.material.icons.filled.Gamepad
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -33,6 +34,7 @@ import com.example.geolearnapp.ui.learn.LearnScreen
 import com.example.geolearnapp.ui.quiz.*
 //import com.example.geolearnapp.ui.quiz.quizGraph
 import com.example.geolearnapp.ui.theme.GeoLearnAppTheme
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -65,6 +67,15 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                 ) {
+
+                    val systemUiController = rememberSystemUiController()
+
+                    SideEffect {
+                        systemUiController.setStatusBarColor(
+                            color = Color(0xFF00569A),
+                        )
+                    }
+
                     Column(modifier = Modifier.padding(paddingValues = it)) {
                         HomeNavGraph(navController = navController)
                     }
@@ -75,7 +86,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun HomeNavGraph(navController: NavHostController) {
     NavHost(navController = navController, startDestination = "learn") {

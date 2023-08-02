@@ -1,18 +1,26 @@
-package com.example.geolearnapp.data.repository
+package com.example.geolearnapp.domain.repository
 
 import com.example.geolearnapp.data.api.CountryApi
 import com.example.geolearnapp.data.database.dao.CountryDao
-import com.example.geolearnapp.data.database.entity.Countries
 import com.example.geolearnapp.data.database.entity.Country
 import com.example.geolearnapp.data.database.entity.HighScore
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class CountryRepository @Inject constructor(
-    private val countryApi: CountryApi,
-    private val countryDao: CountryDao
-) {
+interface CountryRepository{
+
+    suspend fun getCountries(): List<Country>
+
+    fun getCountriesFromDB(): List<Country>
+
+    suspend fun insertCountries(countries: List<Country>)
+
+    suspend fun getCountry(countryId: Int): Country
+
+    suspend fun getHighScore(highScoreName: String): Int
+
+    suspend fun insertHighScore(highScoreName: String, highScore: Int)
+
+    /*
     suspend fun getCountries(): List<Country> {
        return countryApi.getCountries().toCountryList()
     }
@@ -34,4 +42,6 @@ class CountryRepository @Inject constructor(
     suspend fun insertHighScore(highScoreName: String, highScore: Int) {
         countryDao.insertHighScore(HighScore(highScoreName, highScore))
     }
+
+     */
 }
